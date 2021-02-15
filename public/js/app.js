@@ -105,6 +105,7 @@ function clickHandler(event) {
     products[this.dataset.type].forEach(function (el) {
         insertProductIntoControl(myMainDiv,el);
     })
+    console.log(event)
 }
 
 
