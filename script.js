@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const mime = require('mime')
 
 
 const START_DIR = 'public'
@@ -62,6 +63,8 @@ const my_server = http.createServer((req, res)=>{
     }
 
     if (DEBUG_MODE) {console.log('Отдаю: ' + ret_file)}
+    res.setHeader('Content-Type', mime.getType(ret_file));
+    if (DEBUG_MODE) {console.log('тип содержимого: ' + mime.getType(ret_file))}
     const ret_value = fs.readFileSync(ret_file)
     res.end(ret_value)
 })
