@@ -50,6 +50,7 @@ const my_server = http.createServer((req, res)=>{
             ret_file = path.join(START_DIR,req.url)
             // console.log(ret_file)
             if (!fs.existsSync(ret_file)) {
+                if (DEBUG_MODE) {console.log(`Адрес ${ret_file} не найден.... пробую искать ${req.url} в других папках`)}
                 ret_file = ERR_404_FILE
                 server_path.forEach(element => {
                     if (fs.existsSync(path.join(element,req.url))) {
