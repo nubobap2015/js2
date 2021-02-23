@@ -19,7 +19,7 @@ class MyGoodsList extends MyAbstractList {
         let goods = this.fetchGoods()
         this._items  = goods.map(value => {
                 console.log(`Создан элемент ${value.name}`)
-                return new MyGoodItem(value)
+                return new MyGoodItem(value, this._basket)
                 // return new MyBasketItem(value)
             })
         console.log(this._items)
@@ -37,9 +37,9 @@ class MyGoodsList extends MyAbstractList {
 
     render() {
         super.render();
-        this._basket.ppp()
+        const placeToRender = document.querySelector('.goods-list')
         this._items.forEach(El =>{
-            El.render()
+            El.render(placeToRender)
         })
     }
 
@@ -51,27 +51,45 @@ class MyGoodItem extends MyAbstractList {
     img = '/img/goodsimg/noimage.jpg'
     cnt = 0
 
-    constructor({name, price, img, cnt}) {
+    constructor({name, price, img, cnt}, basket) {
         super();
         this.name = name
         this.price = parseFloat(price)
         this.img = img
         this.cnt = cnt
+        this._basket = basket
     }
 
     addToCart() {
-        console.log(this.name)
+        let my_el = undefined
+        this._basket._items.forEach(el =>{
+           if (this.name == el.name) {
+               my_el = el
+           }
+        })
+        if (my_el) {
+             if (this.cnt>my_el.cnt){
+                my_el.cnt ++
+            } else {
+                console.warn(`Нет такого кол-ва товара`)
+            }
+        } else {
+            this._basket._items.push(new MyBasketItem({name: this.name, price: this.price, img: this.img, cnt: 1}, this._basket))
+        }
+
+        this._basket.render()
     }
 
-    render() {
+    render(placeToRender) {
         super.render();
-        const placeToRender = document.querySelector('.goods-list')
         if (placeToRender) {
             const el = document.createElement('div')
+            el.classList.add(this.name)
             el.innerHTML = `
-                Товар: ${this.name} (${this.price} руб.)
+                Товар: ${this.name} (${this.price} руб.) - ${this.cnt} шт
                 <img src="${this.img}" />
                 <br><br><br>
+             
                 `
             const btn2 = new MyButton('+ в корзину', this.addToCart.bind(this))
             placeToRender.appendChild(el)
@@ -83,18 +101,56 @@ class MyGoodItem extends MyAbstractList {
 }
 
 class MyBasketItem extends MyGoodItem {
-
+    name = 'MyBasketItem'
 }
 
 class MyBasket extends MyAbstractList {
+    name = 'MyBasket'
+    _items = []
 
     constructor() {
         super();
+        const placeToRender = document.querySelector('.cart-list')
+        const btn2 = new MyButton('Очистить', this.clearAll.bind(this))
+        btn2.render(placeToRender)
     }
 
-    ppp (){
-        console.log('basket rulit')
+    clearAll() {
+        this._items.forEach(el=>{
+            el.cnt = 0
+        })
+        this.render()
     }
+
+    render() {
+        super.render();
+        const placeToRender = document.querySelector('.cart-list')
+
+        this._items.forEach(El =>{
+            let my_element = placeToRender.querySelector(`.${El.name}`)
+            if (my_element) {
+                if (El.cnt > 0) {
+                    console.log('Изменение элемента')
+                    my_element.innerHTML = `
+                                        Товар: ${El.name} (${El.price} руб.) - ${El.cnt} шт
+                                        <img src="${El.img}" />
+                                        <br><br><br>
+                                        `
+
+                } else {
+                    console.log('Удаление элемента')
+                    my_element.parentNode.removeChild(my_element)
+                    this._items.splice(this._items.indexOf(my_element),1)
+                }
+
+            } else {
+                El.render(placeToRender)
+                console.log('Прорисовка элемента')
+            }
+
+        })
+    }
+
 }
 
 class MyButton extends MyAbstractList{
