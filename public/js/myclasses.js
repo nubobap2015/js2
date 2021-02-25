@@ -101,8 +101,7 @@ class MyGoodItem extends MyAbstractList {
 
 class MyBasketItem extends MyGoodItem {
     
-    
-    
+
     render(placeToRender) {
             if (placeToRender) {
             const el = document.createElement('div')
@@ -134,15 +133,23 @@ class MyBasket extends MyAbstractList {
         btn2.render(placeToRender)
     }
 
+    updateSummary() {
+        let summ = 0
+        this._items.forEach(el=>{
+            summ += el.cnt*el.price
+        })
+        document.querySelector('.summary').innerHTML = `Сумма заказа: ${summ}`
+    }
+
     clearAll() {
         this._items = []
         const allBasketItems = document.querySelectorAll('.MyBasketItem')
         allBasketItems.forEach(my_element =>{
             my_element.parentNode.removeChild(my_element)
         })
-
-
+        this.updateSummary()
     }
+
     render() {
        // super.render();
         const placeToRender = document.querySelector('.cart-list')
@@ -173,8 +180,9 @@ class MyBasket extends MyAbstractList {
                 El.render(placeToRender)
                 console.log('Прорисовка элемента')
             }
-
+        
         })
+        this.updateSummary()
     }
 
 }
