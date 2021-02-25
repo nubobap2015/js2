@@ -1,8 +1,8 @@
 {
    "data": [
-        {"name": "G335", "price": "100", "img": "/img/goodsimg/noimage.jpg", "cnt": 50},
-        {"name": "G167", "price": "200", "img": "/img/goodsimg/noimage.jpg", "cnt": 500},
-        {"name": "G133", "price": "400", "img": "/img/goodsimg/noimage.jpg", "cnt": 250},
-        {"name": "G135", "price": "600", "img": "/img/goodsimg/noimage.jpg", "cnt": 7}
+        {"name": "G335", "price": "100", "img": "https://picsum.photos/seed/9/100", "cnt": 50},
+        {"name": "G167", "price": "200", "img": "https://picsum.photos/seed/10/100", "cnt": 500},
+        {"name": "G133", "price": "400", "img": "https://picsum.photos/seed/11/100", "cnt": 250},
+        {"name": "G135", "price": "600", "img": "https://picsum.photos/seed/12/100", "cnt": 7}
     ]
 }
