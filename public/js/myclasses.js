@@ -16,23 +16,28 @@ class MyGoodsList extends MyAbstractList {
     constructor(basket) {
         super();
         this._basket = basket
-        let goods = this.fetchGoods()
-        this._items  = goods.map(value => {
+        //let goods = this.fetchGoods()
+        /*this._items  = goods.map(value => {
                 console.log(`Создан элемент ${value.name}`)
                 return new MyGoodItem(value, this._basket)
-                // return new MyBasketItem(value)
-            })
+        })*/
+        this.fetchGoods()
+            .then(this.render())
         console.log(this._items)
-        this.render()
     }
 
     fetchGoods() {
-        return [
-            {name: 'G1', price: '100', img: '/img/goodsimg/noimage.jpg', cnt: 50 },
-            {name: 'G2', price: '200', img: '/img/goodsimg/noimage.jpg', cnt: 500},
-            {name: 'G3', price: '400', img: '/img/goodsimg/noimage.jpg', cnt: 250},
-            {name: 'G4', price: '600', img: '/img/goodsimg/noimage.jpg', cnt: 7  },
-            ]
+        return fetch('http://localhost:3000/json/data1.json')
+            .then(res => {
+                return res.json()
+            })
+            //.then(res => {console.log(res.data)})       
+            .then(res => {
+                this._items = res.data.map(value => {
+                console.log(`Создан элемент ${value.name}`)
+                return new MyGoodItem(value, this._basket)
+            })
+        })       
     }
 
     render() {
