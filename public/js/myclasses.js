@@ -37,7 +37,8 @@ class MyGoodsList extends MyAbstractList {
 
     fetchGoods() {
         let tmpArray = []
-        return fetch(`http://localhost:3000/json/data${this._numberOfDataFile}.json`)
+       // return fetch(`http://localhost:3000/json/data${this._numberOfDataFile}.json`)
+        return fetch(`http://${document.location.host}/json/data${this._numberOfDataFile}.json`)
             .then(res => {
                 return res.ok ? res.json():Promise.reject(res)
             })
