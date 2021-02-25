@@ -83,7 +83,8 @@ class MyGoodItem extends MyAbstractList {
         super.render();
         if (placeToRender) {
             const el = document.createElement('div')
-            el.classList.add(this.name)
+            // el.classList.add(this.name)
+            el.setAttribute( 'name', this.name)
             el.innerHTML = `
                 Товар: ${this.name} (${this.price} руб.) - ${this.cnt} шт
                 <img src="${this.img}" />
@@ -99,7 +100,27 @@ class MyGoodItem extends MyAbstractList {
 }
 
 class MyBasketItem extends MyGoodItem {
-    // name = 'MyBasketItem'
+    
+    
+    
+    render(placeToRender) {
+            if (placeToRender) {
+            const el = document.createElement('div')
+            el.classList.add('MyBasketItem')
+            el.setAttribute( 'name', this.name)
+            el.innerHTML = `
+                Товар: ${this.name} (${this.price} руб.) - ${this.cnt} шт
+                <img src="${this.img}" />
+                <br><br><br>
+                `
+            placeToRender.appendChild(el)
+
+            const btnPlus = new MyButton(' + ', () =>{this.cnt++; this._basket.render()})
+            const btnMinus = new MyButton(' - ', () =>{this.cnt--; this._basket.render()})
+            btnPlus.render(el)
+            btnMinus.render(el)
+        }
+    }
 }
 
 class MyBasket extends MyAbstractList {
@@ -114,18 +135,20 @@ class MyBasket extends MyAbstractList {
     }
 
     clearAll() {
-        this._items.forEach(el=>{
-            el.cnt = 0
+        this._items = []
+        const allBasketItems = document.querySelectorAll('.MyBasketItem')
+        allBasketItems.forEach(my_element =>{
+            my_element.parentNode.removeChild(my_element)
         })
-        this.render()
-    }
 
+
+    }
     render() {
-        super.render();
+       // super.render();
         const placeToRender = document.querySelector('.cart-list')
 
         this._items.forEach(El =>{
-            let my_element = placeToRender.querySelector(`.${El.name}`)
+            let my_element = placeToRender.querySelector(`[name=${El.name}]`)
             if (my_element) {
                 if (El.cnt > 0) {
                     console.log('Изменение элемента')
@@ -134,6 +157,11 @@ class MyBasket extends MyAbstractList {
                                         <img src="${El.img}" />
                                         <br><br><br>
                                         `
+                                        const btnPlus = new MyButton(' + ', () =>{El.cnt++; El._basket.render()})
+                                        const btnMinus = new MyButton(' - ', () =>{El.cnt--; El._basket.render()})
+                                        btnPlus.render(my_element)
+                                        btnMinus.render(my_element)
+        
 
                 } else {
                     console.log('Удаление элемента')
