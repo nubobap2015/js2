@@ -76,7 +76,6 @@ class MyGoodItem extends MyAbstractList {
         } else {
             this._basket._items.push(new MyBasketItem({name: this.name, price: this.price, img: this.img, cnt: 1}, this._basket))
         }
-
         this._basket.render()
     }
 
@@ -89,7 +88,6 @@ class MyGoodItem extends MyAbstractList {
                 Товар: ${this.name} (${this.price} руб.) - ${this.cnt} шт
                 <img src="${this.img}" />
                 <br><br><br>
-             
                 `
             const btn2 = new MyButton('+ в корзину', this.addToCart.bind(this))
             placeToRender.appendChild(el)
@@ -101,7 +99,7 @@ class MyGoodItem extends MyAbstractList {
 }
 
 class MyBasketItem extends MyGoodItem {
-    name = 'MyBasketItem'
+    // name = 'MyBasketItem'
 }
 
 class MyBasket extends MyAbstractList {
