@@ -1,0 +1,8 @@
+{
+   "data": [
+        {"name": "G5", "price": "100", "img": "/img/goodsimg/noimage.jpg", "cnt": 50},
+        {"name": "G67", "price": "200", "img": "/img/goodsimg/noimage.jpg", "cnt": 500},
+        {"name": "G33", "price": "400", "img": "/img/goodsimg/noimage.jpg", "cnt": 250},
+        {"name": "G35", "price": "600", "img": "/img/goodsimg/noimage.jpg", "cnt": 7}
+    ]
+}

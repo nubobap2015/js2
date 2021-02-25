@@ -12,36 +12,53 @@ class MyAbstractList {
 class MyGoodsList extends MyAbstractList {
     name = 'MyGoodsList'
     _items = []
+    _numberOfDataFile = 1
+
+    getMoreGoods() {
+       this._numberOfDataFile ++
+       this.fetchGoods()
+           .then(() => {
+                this.render()
+            })
+    }
 
     constructor(basket) {
         super();
         this._basket = basket
-        //let goods = this.fetchGoods()
-        /*this._items  = goods.map(value => {
-                console.log(`Создан элемент ${value.name}`)
-                return new MyGoodItem(value, this._basket)
-        })*/
         this.fetchGoods()
-            .then(this.render())
+            .then(() => {
+                this.render()
+            })
         console.log(this._items)
+
+        const moreDataBtn = new MyButton('Еще данных...', this.getMoreGoods.bind(this))
+        moreDataBtn.render(document.querySelector('.more-buttons'))
     }
 
     fetchGoods() {
-        return fetch('http://localhost:3000/json/data1.json')
+        let tmpArray = []
+        return fetch(`http://localhost:3000/json/data${this._numberOfDataFile}.json`)
             .then(res => {
-                return res.json()
+                return res.ok ? res.json():Promise.reject(res)
             })
-            //.then(res => {console.log(res.data)})       
             .then(res => {
-                this._items = res.data.map(value => {
-                console.log(`Создан элемент ${value.name}`)
-                return new MyGoodItem(value, this._basket)
+                tmpArray = res.data.map(value => {
+                    console.log(`Создан элемент ${value.name}`)
+                    let tmp =  new MyGoodItem(value, this._basket)
+                    console.log(tmp.name)
+                    return tmp
+                })
+                this._items = this._items.concat(tmpArray)
+                console.log(this._items)
             })
-        })       
+            .catch(() => {
+                document.querySelector('.more-buttons').style.display = 'none'
+            })
     }
 
     render() {
         super.render();
+        console.log('render')
         const placeToRender = document.querySelector('.goods-list')
         this._items.forEach(El =>{
             El.render(placeToRender)
@@ -87,20 +104,22 @@ class MyGoodItem extends MyAbstractList {
     render(placeToRender) {
         super.render();
         if (placeToRender) {
-            const el = document.createElement('div')
-            // el.classList.add(this.name)
-            el.setAttribute( 'name', this.name)
-            el.innerHTML = `
+            if (placeToRender.querySelector(`[name=${this.name}]`)) {
+                console.log(`Пропускаю ${this.name}`)
+            } else {
+                const el = document.createElement('div')
+                el.setAttribute('name', this.name)
+                el.innerHTML = `
                 Товар: ${this.name} (${this.price} руб.) - ${this.cnt} шт
                 <img src="${this.img}" />
                 <br><br><br>
                 `
-            const btn2 = new MyButton('+ в корзину', this.addToCart.bind(this))
-            placeToRender.appendChild(el)
-            btn2.render(el)
+                const btn2 = new MyButton('+ в корзину', this.addToCart.bind(this))
+                placeToRender.appendChild(el)
+                btn2.render(el)
+            }
         }
     }
-
 
 }
 
