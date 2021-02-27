@@ -1,3 +1,4 @@
+// Так и не придумал как тут можно эффективно использовать класс
 const FORM_CLASS = 'my_form'
 const my_form = document.querySelector(`.${FORM_CLASS}`);
 if (my_form) {

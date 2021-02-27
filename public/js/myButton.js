@@ -17,7 +17,7 @@ class MyButton {
             if (typeof(this.callback) === 'function') {
                 btn.addEventListener('click', () =>{
                     if (this.params)
-                        this.callback(...this.params)
+                        this.callback(...this.params) // ... - это просто "бомба"!
                     else this.callback()
                 })
             }
