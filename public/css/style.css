@@ -1,6 +1,15 @@
 .cart-list {
   background-color: #FFB656;
 }
+
+.red_border {
+  border: 4px double red;
+}
+
+.green_border {
+  border: 4px solid green;
+}
+
 /*
 Template Name: E-SHOP HTML E-Commerce Template
 Author: yaminncco
