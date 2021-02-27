@@ -7,7 +7,6 @@ if (my_form) {
     }
 
     function checkInput(input, regExpString) {
-         // console.log(input, input.value, regExpString)
         if (checkStr(input.value, regExpString)) {
             input.classList.remove('red_border')
             input.classList.add('green_border')
@@ -28,14 +27,13 @@ if (my_form) {
         ]
 
         formValidControls.forEach( element => {
-            console.log(element)
-            const inputTag = my_form.querySelector(`[name="${element.name}"]`)
+            const inputTag = aform.querySelector(`[name="${element.name}"]`)
             if (inputTag) {
                 checkResult = checkInput(inputTag, element.validRegEx) && checkResult
             }
         })
 
-        console.log(`Результат валидации: ${checkResult}`)
+        console.log(`Результат валидации формы: ${checkResult}`)
     }
 
     const validateButton = new MyButton('Отправка данных', checkForm,[my_form])
