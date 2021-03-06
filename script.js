@@ -1,7 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const mime = require('mime')
+const mime = require('mime');
 
 
 const START_DIR = 'public'
@@ -32,7 +32,8 @@ if (DEBUG_MODE) {console.log(server_path)};
 
 
 const my_server = http.createServer((req, res)=>{
-    
+
+    //my_server.connect().createSession()
     // Сделать поиск по содержимому сайта
     // 1. по / и favicon.ico 
     // 2. public + URL

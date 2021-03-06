@@ -23,6 +23,9 @@
   },
   "homepage": "https://github.com/nubobap2015/js2#readme",
   "dependencies": {
-    "mime": "^2.5.0"
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "mime": "^2.5.2",
+    "path": "^0.12.7"
   }
 }
