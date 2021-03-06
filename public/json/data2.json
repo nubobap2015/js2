@@ -1,0 +1,8 @@
+{
+   "data": [
+        {"name": "G5", "price": "100", "img": "https://picsum.photos/seed/5/100", "cnt": 50},
+        {"name": "G67", "price": "200", "img": "https://picsum.photos/seed/6/100", "cnt": 500},
+        {"name": "G33", "price": "400", "img": "https://picsum.photos/seed/7/100", "cnt": 250},
+        {"name": "G35", "price": "600", "img": "https://picsum.photos/seed/8/100", "cnt": 7}
+    ]
+}

@@ -1,7 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const mime = require('mime')
+const mime = require('mime');
 
 
 const START_DIR = 'public'
@@ -32,7 +32,8 @@ if (DEBUG_MODE) {console.log(server_path)};
 
 
 const my_server = http.createServer((req, res)=>{
-    
+
+    //my_server.connect().createSession()
     // Сделать поиск по содержимому сайта
     // 1. по / и favicon.ico 
     // 2. public + URL
@@ -50,16 +51,27 @@ const my_server = http.createServer((req, res)=>{
             ret_file = path.join(START_DIR,req.url)
             // console.log(ret_file)
             if (!fs.existsSync(ret_file)) {
-                if (DEBUG_MODE) {console.log(`Адрес ${ret_file} не найден.... пробую искать ${req.url} в других папках`)}
+                console.warn(`Файл ${ret_file} не найден.... пробую искать ${req.url} в других папках`)
                 ret_file = ERR_404_FILE
+                /*
                 server_path.forEach(element => {
                     if (fs.existsSync(path.join(element,req.url))) {
                         ret_file = path.join(element,req.url)
                         // тут бы переписать на обычный фор.... или сам, но из-за дефицита времени оставим олдскульный форич
                         // да идет перебор до конца и это не оптимально, я обязательно переделаю.... потом...
                     }
-                })  
-            } 
+                })
+                */
+                // Переписал ))))
+                const resultFolder = server_path.find(element => {
+                    if (DEBUG_MODE) {console.log(`Проверка: ${path.join(element,req.url)}`)}
+                    return fs.existsSync(path.join(element,req.url))
+                })
+                if (resultFolder) {
+                    if (DEBUG_MODE) {console.log(`Успех! Файл ${req.url} найден в ${resultFolder}`)}
+                    ret_file = path.join(resultFolder,req.url)
+                }
+            }
             
     }
 
