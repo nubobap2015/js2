@@ -211,35 +211,3 @@ class MyBasket extends MyAbstractList {
     }
 
 }
-
-class MyButton extends MyAbstractList{
-    name = 'MyButton'
-    text = ''
-    callback = null
-
-    constructor(text, callback) {
-        super();
-        this.text = text
-        this.callback = callback
-    }
-
-    render(placeToRender) {
-        super.render();
-        if (placeToRender) {
-            const btn = document.createElement('button')
-            btn.classList.add('btn')
-            btn.innerText = this.text
-            placeToRender.appendChild(btn)
-            if (typeof(this.callback) === 'function') {
-                btn.addEventListener('click', () =>{
-                    this.callback()
-                })
-            }
-        }
-    }
-
-
-}
-
-const bskt = new MyBasket
-const aaa = new MyGoodsList(bskt)
