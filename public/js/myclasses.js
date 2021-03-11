@@ -12,8 +12,6 @@ class MyAbstractList {
 class MyGoodsList extends MyAbstractList {
     name = 'MyGoodsList'
     _items = []
-<<<<<<< HEAD
-=======
     _numberOfDataFile = 1
 
     getMoreGoods() {
@@ -23,30 +21,10 @@ class MyGoodsList extends MyAbstractList {
                 this.render()
             })
     }
->>>>>>> Lesson4
 
     constructor(basket) {
         super();
         this._basket = basket
-<<<<<<< HEAD
-        let goods = this.fetchGoods()
-        this._items  = goods.map(value => {
-                console.log(`Создан элемент ${value.name}`)
-                return new MyGoodItem(value, this._basket)
-                // return new MyBasketItem(value)
-            })
-        console.log(this._items)
-        this.render()
-    }
-
-    fetchGoods() {
-        return [
-            {name: 'G1', price: '100', img: '/img/goodsimg/noimage.jpg', cnt: 50 },
-            {name: 'G2', price: '200', img: '/img/goodsimg/noimage.jpg', cnt: 500},
-            {name: 'G3', price: '400', img: '/img/goodsimg/noimage.jpg', cnt: 250},
-            {name: 'G4', price: '600', img: '/img/goodsimg/noimage.jpg', cnt: 7  },
-            ]
-=======
         this.fetchGoods()
             .then(() => {
                 this.render()
@@ -77,15 +55,11 @@ class MyGoodsList extends MyAbstractList {
             .catch(() => {
                 document.querySelector('.more-buttons').style.display = 'none'
             })
->>>>>>> Lesson4
     }
 
     render() {
         super.render();
-<<<<<<< HEAD
-=======
         console.log('render')
->>>>>>> Lesson4
         const placeToRender = document.querySelector('.goods-list')
         this._items.forEach(El =>{
             El.render(placeToRender)
@@ -131,32 +105,16 @@ class MyGoodItem extends MyAbstractList {
     render(placeToRender) {
         super.render();
         if (placeToRender) {
-<<<<<<< HEAD
-            const el = document.createElement('div')
-            // el.classList.add(this.name)
-            el.setAttribute( 'name', this.name)
-            el.innerHTML = `
-=======
             if (placeToRender.querySelector(`[name=${this.name}]`)) {
                 console.log(`Пропускаю ${this.name}`)
             } else {
                 const el = document.createElement('div')
                 el.setAttribute('name', this.name)
                 el.innerHTML = `
->>>>>>> Lesson4
                 Товар: ${this.name} (${this.price} руб.) - ${this.cnt} шт
                 <img src="${this.img}" />
                 <br><br><br>
                 `
-<<<<<<< HEAD
-            const btn2 = new MyButton('+ в корзину', this.addToCart.bind(this))
-            placeToRender.appendChild(el)
-            btn2.render(el)
-        }
-    }
-
-
-=======
                 const btn2 = new MyButton('+ в корзину', this.addToCart.bind(this))
                 placeToRender.appendChild(el)
                 btn2.render(el)
@@ -164,7 +122,6 @@ class MyGoodItem extends MyAbstractList {
         }
     }
 
->>>>>>> Lesson4
 }
 
 class MyBasketItem extends MyGoodItem {
@@ -254,38 +211,3 @@ class MyBasket extends MyAbstractList {
     }
 
 }
-<<<<<<< HEAD
-
-class MyButton extends MyAbstractList{
-    name = 'MyButton'
-    text = ''
-    callback = null
-
-    constructor(text, callback) {
-        super();
-        this.text = text
-        this.callback = callback
-    }
-
-    render(placeToRender) {
-        super.render();
-        if (placeToRender) {
-            const btn = document.createElement('button')
-            btn.classList.add('btn')
-            btn.innerText = this.text
-            placeToRender.appendChild(btn)
-            if (typeof(this.callback) === 'function') {
-                btn.addEventListener('click', () =>{
-                    this.callback()
-                })
-            }
-        }
-    }
-
-
-}
-
-const bskt = new MyBasket
-const aaa = new MyGoodsList(bskt)
-=======
->>>>>>> Lesson4
