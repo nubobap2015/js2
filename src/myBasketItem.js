@@ -1,9 +1,11 @@
-import MyAbstractList from './myAbstractList'
+import MyGoodItem from './myGoodItem'
+import MyButton from './myButton'
 
 export default class MyBasketItem extends MyGoodItem {
     
 
     render(placeToRender) {
+            console.log(11111)
             if (placeToRender) {
             const el = document.createElement('div')
             el.classList.add('MyBasketItem')

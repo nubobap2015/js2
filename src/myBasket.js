@@ -1,4 +1,6 @@
 import MyAbstractList from './myAbstractList'
+import MyBasketItem from './myBasketItem'
+import MyButton from './myButton'
 
 export default class MyBasket extends MyAbstractList {
     name = 'MyBasket'
@@ -9,6 +11,10 @@ export default class MyBasket extends MyAbstractList {
         const placeToRender = document.querySelector('.cart-list')
         const btn2 = new MyButton('Очистить', this.clearAll.bind(this))
         btn2.render(placeToRender)
+    }
+
+    addToCart(myGood) {
+        this._items.push(new MyBasketItem({name: myGood.name, price: myGood.price, img: myGood.img, cnt: 1}, this))
     }
 
     updateSummary() {

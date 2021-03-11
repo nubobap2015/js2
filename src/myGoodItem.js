@@ -1,4 +1,6 @@
 import MyAbstractList from './myAbstractList'
+import MyButton from './myButton'
+
 
 export default class MyGoodItem extends MyAbstractList {
     name = 'MyGoodItem'
@@ -29,7 +31,8 @@ export default class MyGoodItem extends MyAbstractList {
                 console.warn(`Нет такого кол-ва товара`)
             }
         } else {
-            this._basket._items.push(new MyBasketItem({name: this.name, price: this.price, img: this.img, cnt: 1}, this._basket))
+            //this._basket._items.push(new MyBasketItem({name: this.name, price: this.price, img: this.img, cnt: 1}, this._basket))
+            this._basket.addToCart(this);
         }
         this._basket.render()
     }
